@@ -8,10 +8,13 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 
@@ -27,7 +30,17 @@ public class MainLayout extends AppLayout {
 
         HorizontalLayout navbarLayout = new HorizontalLayout();
 
-        navbarLayout.add(new DrawerToggle(), new H1("Review"));
+        H1 title = new H1("Reviews");
+        title.getStyle()
+                .set("font-size", "var(--lumo-font-size-l")
+                .set("left", "var(--lumo-space-l)")
+                .set("margin", "0")
+                .set("position", "absolute");
+
+        Tabs tabs = getTabs();
+
+        // SKA VARA KVAR
+        /*navbarLayout.add(new DrawerToggle(), new H1("Review"));*/
 
         Button loginButton = new Button("Login", e -> {
             UI.getCurrent().navigate(LoginView.class);
@@ -35,7 +48,7 @@ public class MainLayout extends AppLayout {
 
         /*Button button = new Button("Sign up");*/
 
-        Button button = new Button("Add new user", e -> {
+        Button button = new Button("Create account", e -> {
             Dialog dialog = new Dialog();
             SignUpForm dialogForm = new SignUpForm(userService);
             dialogForm.setUser(new User());
@@ -47,7 +60,10 @@ public class MainLayout extends AppLayout {
             dialog.open();
         });
 
-        navbarLayout.setWidthFull();
+        addToNavbar(title, tabs, button, loginButton);
+
+        //SKA VARA KVAR
+        /*navbarLayout.setWidthFull();
         navbarLayout.setAlignItems(FlexComponent.Alignment.CENTER);
         navbarLayout.setMargin(true);
 
@@ -60,7 +76,33 @@ public class MainLayout extends AppLayout {
         sideDrawer.add(mainPageLink);
 
         addToDrawer(sideDrawer);
+        */
+
         //sideDrawer.add(userPageLink, mainPageLink);
+
+
+
+
+    }
+
+
+
+    private Tabs getTabs() {
+        Tabs tabs = new Tabs();
+        tabs.getStyle().set("margin", "auto");
+        tabs.add(createTab("Users"),
+                createTab("Movies"),
+                createTab("Main")
+        );
+        return tabs;
+    }
+
+    private Tab createTab(String viewName) {
+        RouterLink link = new RouterLink();
+        link.add(viewName);
+        //link.setRoute();
+        link.setTabIndex(-1);
+        return new Tab(link);
 
     }
 

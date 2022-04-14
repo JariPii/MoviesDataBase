@@ -15,7 +15,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 
-@Route(value = "/", layout = MainLayout.class)
+@Route(value = "", layout = MainLayout.class)
 public class MainPage extends VerticalLayout {
 
     Grid<User> grid = new Grid<>(User.class, false);
@@ -23,7 +23,7 @@ public class MainPage extends VerticalLayout {
     SignUpForm signUpForm;
     /*UserPage userPage;*/
 
-    public MainPage(UserService userService/*, UserPage userPage*/) {
+    public MainPage (UserService userService/*, UserPage userPage*/) {
         this.userService = userService;
         /*this.userPage = userPage;*/
         /*this.signUpForm = new SignUpForm(userService, this);*/
@@ -75,6 +75,7 @@ public class MainPage extends VerticalLayout {
     RouterLink userPageLink = new RouterLink("Users", UserPage.class);
     VerticalLayout sideDrawer = new VerticalLayout(userPageLink);
 
+    RouterLink moviePageLink = new RouterLink("Movies", MoviePage.class);
 
 
     public void updateUsers() {

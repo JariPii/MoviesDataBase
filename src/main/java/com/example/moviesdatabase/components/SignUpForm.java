@@ -7,20 +7,25 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
+import org.springframework.context.annotation.ComponentScans;
 
 import java.time.LocalDate;
 
-
+@CssImport(value = "/themes/styles.css",
+themeFor = "vaadin-text-field")
 public class SignUpForm extends FormLayout {
 
     TextField userName = new TextField("Name");
     TextField email = new TextField("Email");
+    EmailField validEmail = new EmailField();
     TextField password = new TextField("Set password");
     DatePicker datePicker = new DatePicker("Birthday");
     Button signUser = new Button("Sign Up");
@@ -31,14 +36,34 @@ public class SignUpForm extends FormLayout {
 
 
     public SignUpForm(UserService userServices/*, MainPage mainPage*/) {
+        addClassName("signup-form");
         this.userService = userServices;
         /*this.mainPage = mainPage;*/
         binder.bindInstanceFields(this);
         setVisible(false);
 
+        FormLayout formLayout = new FormLayout();
+        formLayout.add(userName, email, password, datePicker);
+
+        formLayout.setResponsiveSteps(
+                new ResponsiveStep("0" , 1),
+                new ResponsiveStep("500px", 2)
+        );
+
+        formLayout.setColspan(password, 2);
+
+
+
+        userName.setClearButtonVisible(true);
+
+        validEmail.setLabel("Email address");
+        validEmail.getElement().setAttribute("namw", "email");
+
+
+
         signUser.addClickListener(e -> saveUser());
 
-        add(userName, email, datePicker, password, signUser /*createButton()*/);
+        add(userName, validEmail, datePicker, password, signUser /*createButton()*/);
 
     }
 
@@ -53,6 +78,7 @@ public class SignUpForm extends FormLayout {
         User user = binder.validate().getBinder().getBean();
         LocalDate userBDay = LocalDate.of(datePicker.getValue().getYear(), datePicker.getValue().getMonth(), datePicker.getValue().getDayOfMonth());
         user.setDateOfBirth(userBDay);
+
 
         if(user.getId() == 0) {
             userService.save(user);

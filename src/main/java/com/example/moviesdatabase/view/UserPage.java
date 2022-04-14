@@ -6,6 +6,7 @@ import com.example.moviesdatabase.repositories.UserRepository;
 import com.example.moviesdatabase.services.UserService;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
@@ -14,28 +15,35 @@ public class UserPage extends VerticalLayout {
 
     Grid<User> grid = new Grid<>(User.class, false);
     UserService userService;
-    /*MainPage mainPage;*/
-    //UserPage userPage;
     UserRepository userRepository;
     SignUpForm signUpForm;
 
     public UserPage(UserService userService) {
-        /*this.mainPage = mainPage;*/
+        //ddClassName("user-view");
         this.userService = userService;
-        /*this.userPage = userPage;*/
-        this.userRepository = userRepository;
-        this.signUpForm = signUpForm;
+
 
         setAlignItems(Alignment.CENTER);
         setSizeFull();
 
         H1 title = new H1("Faaaan");
 
-        userService.findAll();
+        grid.setItems(userService.findAll());
+        grid.setWidthFull();
 
-        add(title);
+        HorizontalLayout main = new HorizontalLayout(grid, title);
+        main.setSizeFull();
+
+        grid.addColumn(User::getUserName).setHeader("Username");
+        grid.addColumn(User::getEmail).setHeader("Email");
+        grid.addColumn(User::getAge).setHeader("Age");
+
+        add(main);
 
     }
 
-
+    public void updateUsers() {
+        grid.setItems((userService.findAll()));
+    }
 }
+
