@@ -2,6 +2,7 @@ package com.example.moviesdatabase.entities;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -13,15 +14,19 @@ public class User {
     private int id;
 
     @Column
+    @NotBlank
     private String userName;
 
     @Column
+    @NotBlank
     private String password;
 
     @Column
+    @NotBlank
     private String email;
 
     @Column
+    @NotBlank
     private LocalDate dateOfBirth;
 
     @Transient

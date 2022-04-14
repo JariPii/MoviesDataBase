@@ -31,6 +31,7 @@ public class SignUpForm extends FormLayout {
 
 
     public SignUpForm(UserService userServices/*, MainPage mainPage*/) {
+        addClassName("signup-form");
         this.userService = userServices;
         /*this.mainPage = mainPage;*/
         binder.bindInstanceFields(this);
