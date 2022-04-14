@@ -14,8 +14,9 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+import org.springframework.stereotype.Component;
 
-@Route(value = "", layout = MainLayout.class)
+@Route(value = "main", layout = MainLayout.class)
 public class MainPage extends VerticalLayout {
 
     Grid<User> grid = new Grid<>(User.class, false);

@@ -10,6 +10,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Main;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -80,7 +81,7 @@ public class MainLayout extends AppLayout {
 
         //sideDrawer.add(userPageLink, mainPageLink);
 
-
+        RouterLink userPage = new RouterLink("Users", UserPage.class);
 
 
     }
@@ -90,9 +91,10 @@ public class MainLayout extends AppLayout {
     private Tabs getTabs() {
         Tabs tabs = new Tabs();
         tabs.getStyle().set("margin", "auto");
-        tabs.add(createTab("Users"),
+        tabs.add(createTab("Main"),
                 createTab("Movies"),
-                createTab("Main")
+                createTab("Users"),
+                createTab("Reviews")
         );
         return tabs;
     }
@@ -100,7 +102,7 @@ public class MainLayout extends AppLayout {
     private Tab createTab(String viewName) {
         RouterLink link = new RouterLink();
         link.add(viewName);
-        //link.setRoute();
+        //link.setRoute(Main.class);
         link.setTabIndex(-1);
         return new Tab(link);
 
