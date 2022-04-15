@@ -1,11 +1,16 @@
 package com.example.moviesdatabase.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Set;
 
 @Entity
+@Table
 public class User {
 
     @Id
@@ -23,6 +28,10 @@ public class User {
 
     @Column
     private LocalDate dateOfBirth;
+
+    @OneToMany(mappedBy = "userName")
+    @JsonIgnore
+    private Set<Review> reviews;
 
     @Transient
     private Integer age;
@@ -47,6 +56,13 @@ public class User {
         /*this.age = age;*/
     }
 
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    /*public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }*/
 
     public int getId() {
         return id;

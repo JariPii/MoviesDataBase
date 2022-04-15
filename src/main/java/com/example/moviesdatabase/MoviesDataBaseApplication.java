@@ -6,6 +6,7 @@ import com.example.moviesdatabase.entities.User;
 import com.example.moviesdatabase.repositories.MovieRepository;
 import com.example.moviesdatabase.repositories.ReviewRepository;
 import com.example.moviesdatabase.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +17,13 @@ import java.time.Month;
 import java.util.List;
 
 @SpringBootApplication
-public class MoviesDataBaseApplication {
+public class MoviesDataBaseApplication implements CommandLineRunner{
+
+    @Autowired
+    ReviewRepository reviewRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(MoviesDataBaseApplication.class, args);
@@ -31,6 +38,7 @@ public class MoviesDataBaseApplication {
         return args -> {
             User todo = new User("Jari","pass", "kas@com", LocalDate.of(1975, Month.OCTOBER, 10));
 
+
             /*User todo1 = new User("Neeeeej",
                     "Jojojo");*/
 
@@ -39,15 +47,19 @@ public class MoviesDataBaseApplication {
             ));
 
             Movie star = new Movie("Star Wars", "George Lucas", 1977, "Sciencefiction");
+            Movie star2 = new Movie("Star Wars 2", "George Lucas", 1980, "Sciencefiction");
 
             movieRepository.saveAll(List.of(
-                    star
+                    star, star2
             ));
 
-            Review first = new Review("Star Wars", "Good shit", 10);
+            Review first = new Review("Star Wars", "Good shit, lots of pewpew," +
+                    "no titties, flying spaceship, one dude with breethin problems, a gay robot", todo, star);
+            Review second = new Review("Star Wars", "Good shit, lots of pewpew," +
+                    "no titties, flying spaceship, one dude with breethin problems, a gay robot", todo, star2);
 
             reviewRepository.saveAll(List.of(
-                    first
+                    first, second
             ));
 
         };
@@ -55,4 +67,10 @@ public class MoviesDataBaseApplication {
 
     }
 
+
+    @Override
+    public void run(String... args) throws Exception {
+
+
+    }
 }

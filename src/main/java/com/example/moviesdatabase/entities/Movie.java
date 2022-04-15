@@ -1,8 +1,12 @@
 package com.example.moviesdatabase.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Table
 public class Movie {
 
     @Id
@@ -21,6 +25,10 @@ public class Movie {
     @Column
     private String genre;
 
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnore
+    private Set<Review> reviews;
+
     public Movie() {
     }
 
@@ -29,6 +37,10 @@ public class Movie {
         this.director = director;
         this.releaseYear = releaseYear;
         this.genre = genre;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
     }
 
     public int getId() {
