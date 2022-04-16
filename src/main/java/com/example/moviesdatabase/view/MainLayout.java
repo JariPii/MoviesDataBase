@@ -2,6 +2,7 @@ package com.example.moviesdatabase.view;
 
 import com.example.moviesdatabase.components.SignUpForm;
 import com.example.moviesdatabase.entities.User;
+import com.example.moviesdatabase.security.PrincipalUtil;
 import com.example.moviesdatabase.services.UserService;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -31,25 +32,34 @@ public class MainLayout extends AppLayout {
 
         HorizontalLayout navbarLayout = new HorizontalLayout();
 
-        H1 title = new H1("Reviews");
+        /*H1 title = new H1("Reviews");
         title.getStyle()
                 .set("font-size", "var(--lumo-font-size-l")
                 .set("left", "var(--lumo-space-l)")
                 .set("margin", "0")
-                .set("position", "absolute");
+                .set("position", "absolute");*/
 
-        Tabs tabs = getTabs();
+        //Tabs tabs = getTabs();
 
         // SKA VARA KVAR
-        /*navbarLayout.add(new DrawerToggle(), new H1("Review"));*/
+        navbarLayout.add(new DrawerToggle(), new H1("Review"));
 
-        Button loginButton = new Button("Login", e -> {
-            UI.getCurrent().navigate(LoginView.class);
-        });
 
-        /*Button button = new Button("Sign up");*/
 
-        Button button = new Button("Create account", e -> {
+        Button loginButton = new Button("Login", e ->
+            UI.getCurrent().navigate(LoginView.class));
+
+        Button logoutButton = new Button("Logout", e -> PrincipalUtil.logout());
+
+        if(PrincipalUtil.isLoggedIn()) {
+            navbarLayout.add(logoutButton);
+        } else {
+            navbarLayout.add(loginButton);
+        }
+
+        /*Button signUpButton = new Button("Sign up");*/
+
+        Button signUpButton = new Button("Sign up", e -> {
             Dialog dialog = new Dialog();
             SignUpForm dialogForm = new SignUpForm(userService);
             dialogForm.setUser(new User());
@@ -61,34 +71,35 @@ public class MainLayout extends AppLayout {
             dialog.open();
         });
 
-        addToNavbar(title, tabs, button, loginButton);
+        addToNavbar(navbarLayout);
 
         //SKA VARA KVAR
-        /*navbarLayout.setWidthFull();
+        navbarLayout.setWidthFull();
         navbarLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+        navbarLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.AROUND);
         navbarLayout.setMargin(true);
 
-        addToNavbar(navbarLayout, loginButton, button);
+        addToNavbar(navbarLayout, signUpButton);
+
+        VerticalLayout sideDrawer = new VerticalLayout();
+        sideDrawer.addClassName("sideDrawer");
 
         RouterLink userPageLink = new RouterLink("Users", UserPage.class);
-        VerticalLayout sideDrawer = new VerticalLayout(userPageLink);
-
         RouterLink mainPageLink = new RouterLink("Main Page", MainPage.class);
-        sideDrawer.add(mainPageLink);
+        RouterLink moviesPageLink = new RouterLink("Movies", MoviePage.class);
+        RouterLink reviewsPageLink = new RouterLink("Reviews", ReviewPage.class);
+        RouterLink reviewLink = new RouterLink("Revs", ReviewView.class);
 
         addToDrawer(sideDrawer);
-        */
 
-        //sideDrawer.add(userPageLink, mainPageLink);
-
-        RouterLink userPage = new RouterLink("Users", UserPage.class);
+        sideDrawer.add(mainPageLink, userPageLink, reviewsPageLink, moviesPageLink, reviewLink);
 
 
     }
 
 
 
-    private Tabs getTabs() {
+    /*private Tabs getTabs() {
         Tabs tabs = new Tabs();
         tabs.getStyle().set("margin", "auto");
         tabs.add(createTab("Main"),
@@ -107,5 +118,5 @@ public class MainLayout extends AppLayout {
         return new Tab(link);
 
     }
-
+*/
 }

@@ -10,22 +10,50 @@ import com.example.moviesdatabase.services.UserService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 
+@PageTitle("Aj's | Reviews")
 @Route(value = "reviews", layout = MainLayout.class)
+@AnonymousAllowed
 public class ReviewPage extends VerticalLayout {
 
-    Grid<Review> grid = new Grid<>(Review.class, false);
+
+    public ReviewPage(ReviewService reviewService) {
+
+        add(new H2 ("Current Reviews"));
+
+        setAlignItems(Alignment.CENTER);
+
+        reviewService.findAll().forEach(review -> {
+
+            H3 reviewTitle = new H3(review.getRevTitle());
+            Paragraph reviewMessage = new Paragraph(review.getRevMessage());
+
+            Paragraph reviewer = new Paragraph("Reviewed by: ");
+            Span author = new Span(review.getUser().getUserName());
+            author.getStyle().set("font-weight", "bold");
+            reviewer.add(author);
+
+            add(reviewTitle, reviewMessage, reviewer, new Hr());
+
+        });
+
+    }
+
+
+    /*Grid<Review> grid = new Grid<>(Review.class, false);
     UserService userService;
     ReviewService reviewService;
     MovieService movieService;
     //UserRepository userRepository;
     ReviewForm reviewForm;
 
-    public ReviewPage(ReviewService reviewService/*, UserRepository userRepository*/, UserService userService, MovieService movieService) {
+    public ReviewPage(ReviewService reviewService*//*, UserRepository userRepository*//*, UserService userService, MovieService movieService) {
         //this.userRepository = userRepository;
         this.movieService = movieService;
         this.userService = userService;
@@ -41,16 +69,16 @@ public class ReviewPage extends VerticalLayout {
         grid.setItems(reviewService.findAll());
         grid.setWidthFull();
 
-        HorizontalLayout main = new HorizontalLayout(grid,title/*,reviewForm*/);
+        HorizontalLayout main = new HorizontalLayout(grid,title*//*,reviewForm*//*);
         main.setSizeFull();
 
         grid.addColumn(Review::getRevTitle).setHeader("Rev title");
         grid.addColumn(Review::getRevMessage).setHeader("Review");
         grid.addColumn(Review::getUser).setHeader("User");
         //grid.addColumn(Review::getRevPoints).setHeader("Points");
-        /*grid.asSingleSelect().addValueChangeListener(e -> {
-            reviewForm.setReview(e.getValue());*/
-        /*});*/
+        *//*grid.asSingleSelect().addValueChangeListener(e -> {
+            reviewForm.setReview(e.getValue());*//*
+        *//*});*//*
 
 
         Button button = new Button("New review", e -> {
@@ -64,14 +92,14 @@ public class ReviewPage extends VerticalLayout {
             dialog.add(dialogForm);
             dialog.open();
 
-        });
+        });*/
 
 
-        add(main, button);
+        //add(main, button);
 
-    }
+    //}
 
-    public void updateReview() {
+    /*public void updateReview() {
         grid.setItems(reviewService.findAll());
-    }
+    }*/
 }

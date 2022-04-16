@@ -24,8 +24,8 @@ themeFor = "vaadin-text-field")
 public class SignUpForm extends FormLayout {
 
     TextField userName = new TextField("Name");
-    TextField email = new TextField("Email");
-    EmailField validEmail = new EmailField();
+    //TextField email = new TextField("Email");
+    EmailField email = new EmailField();
     TextField password = new TextField("Set password");
     DatePicker datePicker = new DatePicker("Birthday");
     Button signUser = new Button("Sign Up");
@@ -45,25 +45,36 @@ public class SignUpForm extends FormLayout {
         FormLayout formLayout = new FormLayout();
         formLayout.add(userName, email, password, datePicker);
 
+        /*email.setLabel("Email address");
+        email.getElement().setAttribute("name", "email");
+        //validEmail.setPlaceholder(validEmail.getPattern());
+        email.setErrorMessage("Please enter a valid example.com email address");
+        email.setClearButtonVisible(true);
+        email.setPattern("^.+@\\.com$");*/
+        //add(email);
+
+        userName.setRequiredIndicatorVisible(true);
+        userName.setErrorMessage("Required");
+
         formLayout.setResponsiveSteps(
                 new ResponsiveStep("0" , 1),
                 new ResponsiveStep("500px", 2)
         );
 
+        formLayout.setColspan(datePicker, 1);
         formLayout.setColspan(password, 2);
 
 
 
         userName.setClearButtonVisible(true);
 
-        validEmail.setLabel("Email address");
-        validEmail.getElement().setAttribute("namw", "email");
+
 
 
 
         signUser.addClickListener(e -> saveUser());
 
-        add(userName, validEmail, datePicker, password, signUser /*createButton()*/);
+        add(userName, email, datePicker, password, signUser /*createButton()*/);
 
     }
 

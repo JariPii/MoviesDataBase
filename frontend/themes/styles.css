@@ -2,8 +2,44 @@
 
 }
 
-.signup-form {
+.sideDrawer {
+    background-color: burlywood;
+}
+
+.div#drawer {
+    background-color: crimson;
+    visibility: visible;
+    transform: translateX(0%);
+    touch-action: manipulation;
+}
+
+.main-page {
+    background-color: black;
+}
+
+.application-hero-img {
+    background-image: url('./img/hero-img.jpg');
+}
+
+[part="input-field"] {
+    border: 1.5px solid black;
+    box-shadow: 0px 0px 15px hsla(55, 80%, 50%, 1), 0 0 10px yellow, 0 0 15px yellow, 0 0 20px yellow ;
+}
+
+.main-page H1 {
+    font-family: "Bookman Old Style";
+    font-size: 2em;
+    color: burlywood;
+    text-shadow: 0px 0px 15px hsla(55, 80%, 50%, 1), 0 0 10px yellow, 0 0 15px yellow, 0 0 20px yellow;
+    -webkit-text-stroke: 0.7px white;
+}
+
+.user-grid {
     background-color: lightblue;
+}
+
+.signup-form {
+    //background-color: lightblue;
 }
 
 .vaadin-field-container {

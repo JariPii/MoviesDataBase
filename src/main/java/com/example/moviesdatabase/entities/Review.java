@@ -25,26 +25,26 @@ public class Review {
     private User userName;
 
     @ManyToOne
-    @JoinColumn(name = "movie_ida")
-    private Movie movie;
+    @JoinColumn(name = "movie_id")
+    private Movie title;
 
     public Review() {
     }
 
-    public Review(String revTitle, String revMessage/*, int revPoints*/, User userName, Movie movie) {
+    public Review(String revTitle, String revMessage/*, int revPoints*/, User userName, Movie title) {
         this.revTitle = revTitle;
         this.revMessage = revMessage;
         //this.revPoints = revPoints;
         this.userName = userName;
-        this.movie = movie;
+        this.title = title;
     }
 
     public Movie getMovie() {
-        return movie;
+        return title;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    public void setMovie(Movie title) {
+        this.title = title;
     }
 
     public User getUser() {

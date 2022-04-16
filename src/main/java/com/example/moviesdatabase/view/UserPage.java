@@ -8,9 +8,13 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 
+@PageTitle("Aj's | Users")
 @Route(value = "/users", layout = MainLayout.class)
+@AnonymousAllowed
 public class UserPage extends VerticalLayout {
 
     Grid<User> grid = new Grid<>(User.class, false);

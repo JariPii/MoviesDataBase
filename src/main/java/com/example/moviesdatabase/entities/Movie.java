@@ -25,7 +25,7 @@ public class Movie {
     @Column
     private String genre;
 
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "title")
     @JsonIgnore
     private Set<Review> reviews;
 

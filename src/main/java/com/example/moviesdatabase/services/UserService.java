@@ -2,11 +2,10 @@ package com.example.moviesdatabase.services;
 
 import com.example.moviesdatabase.entities.User;
 import com.example.moviesdatabase.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -42,6 +41,10 @@ public class UserService {
         return oldUser;
 
     }
+
+/*public Optional<User> findByUserName(String principalName) {
+        return userRepository.findByUserNameList(principalName);
+}*/
 
 
 
