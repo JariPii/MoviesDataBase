@@ -1,7 +1,6 @@
 package com.example.moviesdatabase.entities;
 
 import javax.persistence.*;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
 @Entity
 @Table
@@ -22,7 +21,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User userName;
+    private AppUser userName;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
@@ -31,7 +30,7 @@ public class Review {
     public Review() {
     }
 
-    public Review(String revTitle, String revMessage/*, int revPoints*/, User userName, Movie title) {
+    public Review(String revTitle, String revMessage/*, int revPoints*/, AppUser userName, Movie title) {
         this.revTitle = revTitle;
         this.revMessage = revMessage;
         //this.revPoints = revPoints;
@@ -47,11 +46,11 @@ public class Review {
         this.title = title;
     }
 
-    public User getUser() {
+    public AppUser getUser() {
         return userName;
     }
 
-    public void setUser(User userName) {
+    public void setUser(AppUser userName) {
         this.userName = userName;
     }
 

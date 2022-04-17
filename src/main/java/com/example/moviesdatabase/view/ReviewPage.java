@@ -1,17 +1,8 @@
 package com.example.moviesdatabase.view;
 
-import com.example.moviesdatabase.components.ReviewForm;
-import com.example.moviesdatabase.entities.Review;
-import com.example.moviesdatabase.entities.User;
-import com.example.moviesdatabase.repositories.UserRepository;
-import com.example.moviesdatabase.services.MovieService;
+import com.example.moviesdatabase.security.PrincipalUtil;
 import com.example.moviesdatabase.services.ReviewService;
-import com.example.moviesdatabase.services.UserService;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.*;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -31,6 +22,7 @@ public class ReviewPage extends VerticalLayout {
 
         reviewService.findAll().forEach(review -> {
 
+            H2 movieTitle = new H2(review.getMovie().getTitle());
             H3 reviewTitle = new H3(review.getRevTitle());
             Paragraph reviewMessage = new Paragraph(review.getRevMessage());
 
@@ -39,7 +31,7 @@ public class ReviewPage extends VerticalLayout {
             author.getStyle().set("font-weight", "bold");
             reviewer.add(author);
 
-            add(reviewTitle, reviewMessage, reviewer, new Hr());
+            add(movieTitle, reviewTitle, reviewMessage, reviewer, new Hr());
 
         });
 
@@ -102,4 +94,6 @@ public class ReviewPage extends VerticalLayout {
     /*public void updateReview() {
         grid.setItems(reviewService.findAll());
     }*/
+
+
 }

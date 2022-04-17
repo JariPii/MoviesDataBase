@@ -1,8 +1,8 @@
 package com.example.moviesdatabase.view;
 
 import com.example.moviesdatabase.components.SignUpForm;
-import com.example.moviesdatabase.entities.User;
-import com.example.moviesdatabase.repositories.UserRepository;
+import com.example.moviesdatabase.entities.AppUser;
+import com.example.moviesdatabase.repositories.AppUserRepository;
 import com.example.moviesdatabase.services.UserService;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.*;
@@ -17,9 +17,9 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 @AnonymousAllowed
 public class UserPage extends VerticalLayout {
 
-    Grid<User> grid = new Grid<>(User.class, false);
+    Grid<AppUser> grid = new Grid<>(AppUser.class, false);
     UserService userService;
-    UserRepository userRepository;
+    AppUserRepository userRepository;
     SignUpForm signUpForm;
 
     public UserPage(UserService userService) {
@@ -38,9 +38,9 @@ public class UserPage extends VerticalLayout {
         HorizontalLayout main = new HorizontalLayout(grid, title);
         main.setSizeFull();
 
-        grid.addColumn(User::getUserName).setHeader("Username");
-        grid.addColumn(User::getEmail).setHeader("Email");
-        grid.addColumn(User::getAge).setHeader("Age");
+        grid.addColumn(AppUser::getUserName).setHeader("Username");
+        grid.addColumn(AppUser::getEmail).setHeader("Email");
+        grid.addColumn(AppUser::getAge).setHeader("Age");
 
         add(main);
 

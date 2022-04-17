@@ -12,13 +12,14 @@ import java.util.List;
 public class ReviewService {
 
     ReviewRepository reviewRepository;
-    PrincipalUtil principalUtil;
 
     public ReviewService(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }
 
     public List<Review> findAll(){return reviewRepository.findAll();}
+
+    public Review findRevById(int id){return reviewRepository.findById(id).orElseThrow();}
 
     //public List<Review> findByUser_Username(String userName) {return reviewRepository.findByUser_Username(userName);}
 
@@ -46,7 +47,7 @@ public class ReviewService {
     }
 
 
-    public List<Review> findReviewByUsername(String principalName) {
-        return reviewRepository.findByUserName(principalName);
+    public List<Review> findReviewByUsername(AppUser userName) {
+        return reviewRepository.findReviewsByUserName(userName);
     }
 }

@@ -1,10 +1,7 @@
 package com.example.moviesdatabase.security;
 
-import com.example.moviesdatabase.entities.User;
-import com.example.moviesdatabase.repositories.UserRepository;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.VaadinServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 

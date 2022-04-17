@@ -1,6 +1,7 @@
 package com.example.moviesdatabase.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -26,7 +27,7 @@ public class Movie {
     private String genre;
 
     @OneToMany(mappedBy = "title")
-    @JsonIgnore
+    @JsonIgnoreProperties("title")
     private Set<Review> reviews;
 
     public Movie() {

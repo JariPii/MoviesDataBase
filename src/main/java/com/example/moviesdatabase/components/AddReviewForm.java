@@ -2,8 +2,8 @@ package com.example.moviesdatabase.components;
 
 import com.example.moviesdatabase.entities.Review;
 import com.example.moviesdatabase.services.ReviewService;
-import com.example.moviesdatabase.services.UserService;
-import com.example.moviesdatabase.view.ReviewView;
+import com.example.moviesdatabase.view.MoviePage;
+import com.example.moviesdatabase.view.ReviewPage;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -13,31 +13,30 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 
+import java.util.List;
 
-public class ReviewForm extends FormLayout {
-
-    TextField revTitle = new TextField("Title");
-    TextArea revMessage = new TextArea("My review");
-    Button saveButton = new Button("Save");
+public class AddReviewForm extends FormLayout {
 
     Binder<Review> binder = new BeanValidationBinder<>(Review.class);
     ReviewService reviewService;
-    UserService userService;
-    ReviewView reviewView;
+    MoviePage moviePage;
+
+    TextField revTitle = new TextField("Review title");
+    TextArea revMessage = new TextArea("Review");
 
 
-   public ReviewForm(ReviewService reviewService, ReviewView reviewView) {
+    Button save = new Button("Save");
+    Review review;
+
+    public AddReviewForm(ReviewService reviewService, MoviePage moviePage) {
         this.reviewService = reviewService;
-        this.reviewView = reviewView;
+        this.moviePage = moviePage;
         binder.bindInstanceFields(this);
         setVisible(false);
 
+        add(revTitle, revMessage, save);
 
-
-        add(revTitle, revMessage, saveButton);
-
-       saveButton.addClickListener(e -> saveReview());
-
+        save.addClickListener(e -> saveReview());
     }
 
     private void saveReview() {
@@ -48,19 +47,16 @@ public class ReviewForm extends FormLayout {
             UI.getCurrent().navigate("revs");
         } else {
             reviewService.updateById(review.getId(), review);
-            UI.getCurrent().navigate("revs");
         }
 
         setReview(null);
 
-
-        reviewView.updateItems();
+        //reviewView.updateItems();
         //reviewPage.updateReview();
 
         this.getParent().ifPresent(c -> {
             if( c instanceof Dialog) {
                 ((Dialog) c).close();
-
             }
         });
 
@@ -71,7 +67,7 @@ public class ReviewForm extends FormLayout {
             binder.setBean(review);
             setVisible(true);
         } else {
-           setVisible(false);
+            setVisible(false);
         }
     }
 }

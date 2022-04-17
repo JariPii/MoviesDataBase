@@ -1,54 +1,53 @@
 package com.example.moviesdatabase.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.management.relation.Role;
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table
-public class User {
+public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String userName;
 
-    @Column
+    @Column(nullable = false)
+    @NotBlank
     private String password;
 
     @Column
+    @NotBlank
     private String email;
 
     @Column
     private LocalDate dateOfBirth;
 
     @OneToMany(mappedBy = "userName")
-    @JsonIgnore
+    @JsonIgnoreProperties("userName")
     private Set<Review> reviews;
 
     @Transient
     private Integer age;
 
-    /*public RegUser(String userName, String password) {
+    public AppUser() {
+    }
+
+    public AppUser(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
 
-    public RegUser() {
-
-    }*/
-
-    public User() {
-    }
-
-    public User(String userName, String password, String email, LocalDate dateOfBirth/*, Integer age*/) {
+    public AppUser(String userName, String password, String email, LocalDate dateOfBirth/*, Integer age*/) {
         this.userName = userName;
         this.password = password;
         this.email = email;
@@ -60,9 +59,9 @@ public class User {
         return reviews;
     }
 
-    /*public void setReviews(Set<Review> reviews) {
+    public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
-    }*/
+    }
 
     public int getId() {
         return id;

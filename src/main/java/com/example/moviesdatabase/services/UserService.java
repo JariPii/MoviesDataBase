@@ -1,24 +1,23 @@
 package com.example.moviesdatabase.services;
 
-import com.example.moviesdatabase.entities.User;
-import com.example.moviesdatabase.repositories.UserRepository;
+import com.example.moviesdatabase.entities.AppUser;
+import com.example.moviesdatabase.repositories.AppUserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
 
-    UserRepository userRepository;
+    AppUserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {this.userRepository = userRepository;}
+    public UserService(AppUserRepository userRepository) {this.userRepository = userRepository;}
 
-    public List<User> findAll() {
+    public List<AppUser> findAll() {
         return userRepository.findAll();
     }
 
-    public User save(User user){
+    public AppUser save(AppUser user){
         return userRepository.save(user);
     }
 
@@ -26,8 +25,8 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User updateById(int id, User newUser) {
-        User oldUser = userRepository.findById(id).orElseThrow();
+    public AppUser updateById(int id, AppUser newUser) {
+        AppUser oldUser = userRepository.findById(id).orElseThrow();
 
         if(newUser.getUserName() != null)
             oldUser.setUserName(newUser.getUserName());
